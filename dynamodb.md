@@ -28,8 +28,8 @@
 * Spread across 3 geographically distinct data centers
 
 ## Consistency modes
-* Eventual consistent reads (default). Consistency is delayed, but is reached within 1 seconds.
-* Strongly consistent reads - consistent immediately prior to the read.
+* **Eventual consistent** reads (default). Consistency is delayed, but is reached within 1 seconds.
+* **Strongly consistent** reads - consistent immediately prior to the read.
 
 ## Basics
 * Table - e.g. school
@@ -64,4 +64,11 @@
 ## Triggers
 * Connect Streams to lambda.
 * modify item, stream is triggers, lambda is triggered.
+
+## Query
+* Query - finds items in a table usin only primary key attribute values. Optionally filter by sort key.
+* By default, Query retuns all data, but you can use ProjectionExpression parameter so that the query only returns some of the attributes.
+* Result is sorted by sort key **ascending**. To make it **descending**, set the **ScanIndexForward** param to **false**.
+* by default, it is **eventually consistent**, but can be changed to **strongly consistent**.
+
 
