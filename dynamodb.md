@@ -84,7 +84,7 @@
 * As the table grows, the scan slows.
 * The more filters, the slower performance of a scan.
 
- ## Query vs Scan
+## Query vs Scan
  * Query is more efficient than Scan
  * Avoid using Scan on large table. 
 
