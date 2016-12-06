@@ -130,3 +130,10 @@ e.g. App requires to read 5 items of 10KB per second using eventual consistency.
 ## Write Throughput
 e.g. App requires to write 5 items. Each item = 10KB per second.
 5 x 10KB = 50 write units throughput.
+
+## Web Identity providers to authenticate to DynamoDB
+1. User authenticates with ID provider (eg. Google, Facebook).
+2. User is given back a token by ID Provider.
+3. Your code calls AssumeRoleWithWebIdentity API and provides the ProviderID token and RoleARN for the IAM Role.
+4. Your App can now access DyanmoDB from between 15mins to 1hr (default is 1hr).
+
