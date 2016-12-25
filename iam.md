@@ -53,3 +53,14 @@
 * Instead of the company sharing that root account to some of its employees, the root AWS Account holder should set up an IAM admin group, as well as several users.
 * Admin group would then be assigned to several users, so that root account would no longer need to be used to interact with AWS resources.
 * Note: Root AWS Account holder is not linked to IAM, but could still interact with AWS resources.
+
+### Q. A webapp in VPC is connected to corp data center via IPSec VPN. How can the webapp user access her S3 bucket using her IAM Role?
+* App user authenticates against LDAP.
+* Using the IAM Security Token Service, the app user retrieves her IAM role.
+* App then uses the temporary credentials to access her S3 bucket.
+
+### Q. A webapp in VPC is connected to corp data center via IPSec VPN. How can the webapp user access her S3 bucket using her IAM user?
+* Identity broker authenticates against LDAP.
+* Using the IAM Security Token Service, the broker retrieves her IAM user.
+* App calls the user's S3 bucket.
+
