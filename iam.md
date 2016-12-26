@@ -1,26 +1,34 @@
 # IAM
 
-* Without IAM, orgs with many users will sign up to AWS and manager their own billing.
-* IAM enables orgs to create multiple users.
+* Without IAM, orgs with many users will sign up to AWS individually, then manage their own billing.
+* Alternatively, one root account is shared among many people, which is a bad practice.
+* IAM enables orgs to create multiple users, so that the root account is never used for day-to-day use.
 
 * IAM has no additional charge for use.
 
 * IAM AWS Account is global (not region specific).
 
+* IAM policies can be directly attached to roles, users and groups. 
+  Policies can only be applied to other AWS services (indirectly) through roles. 
+  e.g. If EC2 instance wants to access S3, you attach a role to EC2. The role can have AmazonS3FullAccess permission.
+
+
 * Consists of users, groups, roles:
     1. User - person
-    2. Group - collection of users with 1 set of permissions
-    3. Role - can be applied to both users and AWS services (e.g EC2, Lambda). 
-       It defines a set of permissions for making AWS service requests. 
-       It is not associated with a specific user or group. Instead, roles are assumed by trusted entities (e.g. user, app, EC2 service).
+    2. Group - collection of users with 1 set of permissions (e.g. DEV). You add permission to DEV. e.g. Add AmazonS3FullAccess permission to DEV so that users in DEV could access S3.
+    3. Role - allows AWS services to access other AWS services.
+       e.g. You want EC2 instance to access S3. You create a role named EC2Role. You add AmazonS3FullAccess permission to the EC2Role.
+       When you launch your EC2 instance, you assign EC2Role to that instance.
 
-* user access key id / secret access key is used for cli/api.
+* Principle of least privilage - by default, access is denied to a newly created user. Access is granted through 'explicit allow'. 
+  Eg. If Bob user is newly created and wants to access an S3 bucket, he won't be able to, because he is blocked by default.
+  However, if you attach an AmazonS3FullAccess policy to user Bob, he'd be able to access it.
+
+* user access key id / secret access key is used for cli/api. 
 
 * MFA - Multi Factor Authentication
 
-* newly created user by default has no permissions to do anything.
- 
-* permission is created by creating a policy or by using pre-built policies.
+* permission is created by creating a policy or by using pre-built policies (grouping of permissions).
 
 * a policy can be assigned to a :
     1. user
@@ -39,12 +47,14 @@
   1. One Account = max 20 EC2 instances. You can't associate >1 role to an instance.
   2. 250 roles
   3. total policies size <= 10KB
+  4. 1 group can have max = 10 policies.
 
 * For an IAM user to launch an EC2 instance, it must be given 2 permissions in a role:
     1. Permission to launch
     2. Permission to associate role with the EC2 instance.
 
 ## Federated Active directory (SSO)
+* Federated = externally authenticated
 * Integrates with Active Directory, allowing SSO using **SAML** (Secure Assertive Markup Language).
     1. User navigates to ADFS webserver.
     2. User enters SSO creds
