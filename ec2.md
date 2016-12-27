@@ -40,12 +40,31 @@
 * To restore a snapshot, you need to create a new EBS volume, using the snapshot as its template.
 
 ## EC2 Instance Types
-* DIRT MCG
-* D - Density
-* I - IOPS
-* R - RAM
-* T - T2 micro cheap general purpose
-* M - main choise for general purpose
-* C - Compute
-* G - Graphics
+* **DIRT MCG**
+* **D** - Density
+* **I** - IOPS
+* **R** - RAM
+* **T** - T2 micro cheap general purpose
+* **M** - main choise for general purpose
+* **C** - Compute
+* **G** - Graphics
+
+## Access Key
+* Invoking AWS CLI for the first time will ask you for the :
+    1. Access Key ID
+    2. Secret Access Key
+* AWS CLI can be used in both your laptop or your EC2 instance.    
+* If you store the ~/.aws/credentials (containing the Access Key ID / Secret Access Key) in your EC2 instance, 
+  and if your EC2 instance gets compromised, hacker will be be able to interact with your AWS AMI user account from their own laptop (or their own EC2 instance) via the AWS CLI.
+  Therefore, it is very insecure to use the AWS Credentials inside EC2 instance. Instead, use **Roles**.
+
+## Alternative to Access Key using Roles
+* Never store your AWS Access Credentails (i.e. ~/.aws/credentials)  in EC2 instance. Instead, create a Role.
+* If you want your EC2 instance to invoke AWS S3 CLI, do the following:
+    1. Create a **Role** named `EC2S3Role`.
+    2. Select **Role Type** `Amazon EC2` - Allows EC2 instances to call AWS services on your behalf.
+    3. Attach **Policy** `AmazonS3FullAccess`.
+    4. Create EC2 instance. Attach Role to the instance during creation.
+* If instance gets compromised, ~/.aws/credentials is no where to be found.
+
 
