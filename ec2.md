@@ -7,7 +7,8 @@
    When your bid price is < spot price, your instance will be terminated within 1hr. 
    Used by science companies to run their calculations, saving 50%-90%.
    Use by apps that have flexible start/end times.
-   If the spot instance is terminated by AMZ, you will not be charged for a partial hour. If you terminate the instance yourself, you will be charged for any hour.
+   If AWS terminates the spot instance, you get the hour it was terminated in for fre.
+   If you terminate the spot instance, you pay for the hour.
 
 ## EBS Volumes
 * Hard drive for your EC2 instance.
@@ -15,6 +16,8 @@
 * can be attached to any running instance in the same AZ.
 * persists independently from the life of the instance.
 * You cannot mount 1 EBS volume to multiple EC2 instances. Instead, use EFS.
+* EFS - Elastic File System. Block level storage.
+* S3 - object storage.
 
 # EBS Volume Types
 1. GP2 - General Purpose SSD. Five Nine availability (99.9999%). Up to 10,000 IOPS
@@ -68,3 +71,47 @@
 * If instance gets compromised, ~/.aws/credentials is no where to be found.
 
 
+## Metadata
+* How to get the public ip address of your ec2 instance:
+    1. ssh into your ec2 instance
+    2. curl http://169.254.169.254/latest/meta-data/public-ipv4
+
+## ELB
+* ELB is not free. Charged by the hour and per gig.
+* must configure one or more listeners (a process that checks for connection requests to your ELB).
+```
+Listeners:
+    - LoadBalancerPort: '80'
+      InstancePort: '80'
+      Protocol: HTTP
+```
+* Supported ELB protocols: HTTP, TCP, SSL
+* Supported ELB Ports: 1-65535
+
+
+## Services that are free (but resources they create are not free)
+* CloudFormation
+* Beanstalk
+* Autoscaling
+* Opsworks
+
+
+## HTTP Error Codes
+* 200 - OK
+* 3XX - Redirection
+* 4XX - Client error (e.g. 404 not found)
+* 5XX - Server error
+
+## AWS SDKs
+* aws.amazon.com/tools
+* Android, iOS
+* JS, Node.js
+* Java, .Net
+* PHP, Python, Ruby
+* Go, C++
+
+## SDK Default Regions
+* Default Region - US-EAST-1 (N.Virginia)
+* If no region is specified, it defaults to US-EAST-1
+* Some have default regions (java)
+* some do not (Node.js)
